@@ -1,0 +1,56 @@
+version: "3"
+
+services:
+  web:
+    image: 192.168.35.202:5000/pre_version:1.0
+    deploy:
+      replicas: 3
+      placement:
+        constraints: [node.role != manager, node.role != backdb]
+    networks:
+      - 3tier
+    environment:
+      SERVICE_PORTS: 80
+    ports:
+      - "80:80"
+    depends_on:
+      - tomcat
+
+  db:
+    image: mariadb
+    deploy:
+      placement:
+        constraints: [node.role == manager]
+      restart_policy:
+        condition: on-failure
+        max_attempts: 3
+    volumes:
+      - /3tierdb:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: 1234
+      MYSQL_DATABASE: 3tierdb
+      MYSQL_USER: infrauser
+      MYSQL_PASSWORD: 1234
+    networks:
+      - 3tier
+
+
+  tomcat:
+    image: tomcat:1.0
+    deploy:
+      placement:
+        constraints: [node.role == manager]
+      restart_policy:
+        condition: on-failure
+        max_attempts: 3
+    networks:
+      - 3tier
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+
+networks:
+  3tier:
+    external: true
+

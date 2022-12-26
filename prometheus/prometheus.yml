@@ -1,0 +1,9 @@
+global:
+  scrape_interval: 5s
+  external_labels:
+    monitor: 'my-monitor'
+
+scrape_configs:
+  - job_name: 'cAdvisor'
+    static_configs:
+      - targets: ['192.168.35.203:8080', '192.168.35.204:8080']

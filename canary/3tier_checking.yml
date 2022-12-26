@@ -1,0 +1,56 @@
+version: "3"
+
+services:
+  web_damo:
+    image: 192.168.35.202:5000/new_version:1.0
+    deploy:
+      replicas: 1
+      placement:
+        constraints: [node.role != manager, node.role != backdb]
+    networks:
+      - 3tier_damo
+    environment:
+      SERVICE_PORTS: 80
+    ports:
+      - "9000:80"
+    depends_on:
+      - tomcat_damo
+
+  db_damo:
+    image: mariadb
+    deploy:
+      placement:
+        constraints: [node.role == manager]
+      restart_policy:
+        condition: on-failure
+        max_attempts: 3
+    volumes:
+      - /3tierdb_damo:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: 1234
+      MYSQL_DATABASE: 3tierdb_damo
+      MYSQL_USER: infrauser_damo
+      MYSQL_PASSWORD: 1234
+    networks:
+      - 3tier_damo
+
+
+  tomcat_damo:
+    image: tomcat_damo:1.0
+    deploy:
+      placement:
+        constraints: [node.role == manager]
+      restart_policy:
+        condition: on-failure
+        max_attempts: 3
+    networks:
+      - 3tier_damo
+    ports:
+      - "777:8080"
+    depends_on:
+      - db_damo
+
+networks:
+  3tier_damo:
+    external: true
+
