@@ -49,19 +49,18 @@
 
 ### “Update”이전 (기존 버전의 서비스가 운영 중인 상황을 가정)
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/e3c9162f-ded8-480a-a3a8-270d8e1ce32e/Untitled.png)
-
+![image](https://user-images.githubusercontent.com/93701762/232329132-df71735d-d96a-4a09-8d7a-00cadef64398.png)
 - Worker1에 존재하는 흑백의 컨테이너에 배포되어 있는 새로운 버전이 ‘3tier-damo’라는 네트워크를 통해 일부만 배포되어 있는 환경입니다
 
 ### “Update”이후 (새로운 버전의 서비스로 업데이트)
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/4371a7ce-7631-41e8-93ec-c355134ac76f/Untitled.png)
+![image](https://user-images.githubusercontent.com/93701762/232329141-93f81402-7c67-4efc-8b0a-24a104c1e050.png)
 
 - 새로운 서비스로 모두 업데이트를 완료하였으며, 서비스가 운영중인 ‘3tier’네트워크에 배포가 되었습니다
 
 ### “Monitoring 시스템”
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/48a82b1d-fc42-47be-b697-1071ecfa7764/Untitled.png)
+![image](https://user-images.githubusercontent.com/93701762/232329159-7f424c1f-1d80-423b-b047-98011a570d07.png)
 
 - cAdvisor을 통해 컨테이너들에 대한 정보를 수집할 수 있습니다.
 
